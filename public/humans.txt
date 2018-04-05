@@ -3,7 +3,7 @@
 
 
 /* TEAM */
-  <your title>: <your name>
+  Web programmer: Yuri Baranov
   Site:
   Twitter:
   Location:
