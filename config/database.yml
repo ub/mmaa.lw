@@ -56,6 +56,6 @@ production:
   encoding: unicode
   database: lla_production
   pool:     5
-  username: deploy
-  password: U"AHG_H!q?z}4/3s
+  username: lesswrong
+  password: <%= Rails.application.secrets.database[:password] %>
   template: template0
