@@ -57,5 +57,5 @@ production:
   database: lla_production
   pool:     5
   username: lesswrong
-  password: <%= Rails.application.secrets.database[:password] %>
+  password: <%= Rails.application.secrets.database[:password] rescue 'notdisclosed'%>
   template: template0
