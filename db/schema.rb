@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180410200624) do
+ActiveRecord::Schema.define(version: 20180410220449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activity_applications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "meetup_event_id"
+    t.string "name"
+    t.text "description"
+    t.int4range "duration"
+    t.string "tags", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meetup_event_id"], name: "index_activity_applications_on_meetup_event_id"
+    t.index ["user_id"], name: "index_activity_applications_on_user_id"
+  end
 
   create_table "meetup_events", force: :cascade do |t|
     t.text "description"
@@ -29,4 +42,6 @@ ActiveRecord::Schema.define(version: 20180410200624) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "activity_applications", "meetup_events"
+  add_foreign_key "activity_applications", "users"
 end

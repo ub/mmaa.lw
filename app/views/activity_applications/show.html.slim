@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong User:
+  = @activity_application.user
+p
+  strong Meetup event:
+  = @activity_application.meetup_event
+p
+  strong Name:
+  = @activity_application.name
+p
+  strong Description:
+  = @activity_application.description
+p
+  strong Duration:
+  = @activity_application.duration
+p
+  strong Tags:
+  = @activity_application.tags
+
+=> link_to 'Edit', edit_activity_application_path(@activity_application)
+'|
+=< link_to 'Back', activity_applications_path

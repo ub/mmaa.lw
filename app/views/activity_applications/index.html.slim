@@ -1,0 +1,31 @@
+h1 Listing activity_applications
+
+table
+  thead
+    tr
+      th User
+      th Meetup event
+      th Name
+      th Description
+      th Duration
+      th Tags
+      th
+      th
+      th
+
+  tbody
+    - @activity_applications.each do |activity_application|
+      tr
+        td = activity_application.user
+        td = activity_application.meetup_event
+        td = activity_application.name
+        td = activity_application.description
+        td = activity_application.duration
+        td = activity_application.tags
+        td = link_to 'Show', activity_application
+        td = link_to 'Edit', edit_activity_application_path(activity_application)
+        td = link_to 'Destroy', activity_application, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Activity application', new_activity_application_path

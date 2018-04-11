@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :activity_applications
   resources :meetup_events
   resources :users
   root to: 'visitors#index'

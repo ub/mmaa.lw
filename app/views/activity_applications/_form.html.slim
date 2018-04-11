@@ -1,0 +1,27 @@
+= form_for @activity_application do |f|
+  - if @activity_application.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@activity_application.errors.count, "error")} prohibited this activity_application from being saved:"
+      ul
+        - @activity_application.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :user
+    = f.text_field :user
+  .field
+    = f.label :meetup_event
+    = f.text_field :meetup_event
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :description
+    = f.text_field :description
+  .field
+    = f.label :duration
+    = f.text_field :duration
+  .field
+    = f.label :tags
+    = f.text_field :tags
+  .actions = f.submit
