@@ -6,7 +6,6 @@ class MeetupEvent < ApplicationRecord
   has_many :activity_applications
 
   def ensure_default_values
-    Rails.logger.info("START TIME IS BLANK") if self.start_time.blank?
     self.description ||= DEFAULT_DESCRIPTION if self.has_attribute? :description
     self.place ||= DEFAULT_PLACE if self.has_attribute? :place
   end

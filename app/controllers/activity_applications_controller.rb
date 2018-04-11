@@ -1,4 +1,6 @@
 class ActivityApplicationsController < ApplicationController
+  before_action  :authenticate_user!, except: [:index, :show]
+
   before_action :set_activity_application, only: [:show, :edit, :update, :destroy]
 
   # GET /activity_applications

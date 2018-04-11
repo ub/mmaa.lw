@@ -11,4 +11,8 @@ class User < ApplicationRecord
     end
   end
 
+  def admin?
+    self.admin_flag == true
+  end
+
 end
