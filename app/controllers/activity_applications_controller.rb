@@ -1,6 +1,7 @@
 class ActivityApplicationsController < ApplicationController
   before_action  :authenticate_user!, except: [:index, :show]
 
+  before_action :set_meetup_event
   before_action :set_activity_application, only: [:show, :edit, :update, :destroy]
 
   # GET /activity_applications
@@ -65,12 +66,18 @@ class ActivityApplicationsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_activity_application
+
+  def set_meetup_event
+    @meetup_event = MeetupEvent.find(params[:meetup_event_id])
+  end
+
+
+  def set_activity_application
       @activity_application = ActivityApplication.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_application_params
-      params.require(:activity_application).permit(:user_id, :meetup_event_id, :name, :description, :duration, :tags)
+      params.require(:activity_application).permit(:user_id, :name, :description, :duration, :tags)
     end
 end

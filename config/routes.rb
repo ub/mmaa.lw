@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :activity_applications
-  resources :meetup_events
+  resources :meetup_events do
+    resources :activity_applications
+  end
   resources :users
   root to: 'visitors#index'
   get '/auth/:provider/callback' => 'sessions#create'

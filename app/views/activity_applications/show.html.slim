@@ -19,6 +19,6 @@ p
   strong Tags:
   = @activity_application.tags
 
-=> link_to 'Edit', edit_activity_application_path(@activity_application)
+=> link_to 'Edit', edit_meetup_event_activity_application_path(@meetup_event, @activity_application)
 '|
-=< link_to 'Back', activity_applications_path
+=< link_to 'Back', meetup_event_activity_applications_path(@meetup_event)

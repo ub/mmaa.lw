@@ -22,10 +22,10 @@ table
         td = activity_application.description
         td = activity_application.duration
         td = activity_application.tags
-        td = link_to 'Show', activity_application
-        td = link_to 'Edit', edit_activity_application_path(activity_application)
-        td = link_to 'Destroy', activity_application, data: { confirm: 'Are you sure?' }, method: :delete
+        td = link_to 'Show', [@meetup_event, activity_application]
+        td = link_to 'Edit', edit_meetup_event_activity_application_path(@meetup_event, activity_application)
+        td = link_to 'Destroy', [@meetup_event, activity_application], data: { confirm: 'Are you sure?' }, method: :delete
 
 br
 
-= link_to 'New Activity application', new_activity_application_path
+= link_to 'New Activity application', new_meetup_event_activity_application_path(@meetup_event)
