@@ -1,5 +1,5 @@
 class ActivityApplicationsController < ApplicationController
-  before_action  :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
 
   before_action :set_meetup_event
   before_action :set_activity_application, only: [:show, :edit, :update, :destroy]
@@ -27,15 +27,15 @@ class ActivityApplicationsController < ApplicationController
   # POST /activity_applications
   # POST /activity_applications.json
   def create
-    @activity_application = ActivityApplication.new(activity_application_params)
+    @activity_application = @meetup_event.activity_applications.new(activity_application_params_for_create)
 
     respond_to do |format|
       if @activity_application.save
-        format.html { redirect_to @activity_application, notice: 'Activity application was successfully created.' }
-        format.json { render :show, status: :created, location: @activity_application }
+        format.html {redirect_to [@meetup_event, @activity_application], notice: 'Activity application was successfully created.'}
+        format.json {render :show, status: :created, location: meetup_event_activity_application_path(@meetup_event, @activity_application)}
       else
-        format.html { render :new }
-        format.json { render json: @activity_application.errors, status: :unprocessable_entity }
+        format.html {render :new}
+        format.json {render json: @activity_application.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -45,11 +45,11 @@ class ActivityApplicationsController < ApplicationController
   def update
     respond_to do |format|
       if @activity_application.update(activity_application_params)
-        format.html { redirect_to @activity_application, notice: 'Activity application was successfully updated.' }
-        format.json { render :show, status: :ok, location: @activity_application }
+        format.html {redirect_to [@meetup_event, @activity_application], notice: 'Activity application was successfully updated.'}
+        format.json {render :show, status: :ok, location: meetup_event_activity_application_path(@meetup_event, @activity_application)}
       else
-        format.html { render :edit }
-        format.json { render json: @activity_application.errors, status: :unprocessable_entity }
+        format.html {render :edit}
+        format.json {render json: @activity_application.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -59,13 +59,14 @@ class ActivityApplicationsController < ApplicationController
   def destroy
     @activity_application.destroy
     respond_to do |format|
-      format.html { redirect_to activity_applications_url, notice: 'Activity application was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html {redirect_to activity_applications_url, notice: 'Activity application was successfully destroyed.'}
+      format.json {head :no_content}
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+  # Use callbacks to share common setup or constraints between actions.
 
   def set_meetup_event
     @meetup_event = MeetupEvent.find(params[:meetup_event_id])
@@ -73,11 +74,18 @@ class ActivityApplicationsController < ApplicationController
 
 
   def set_activity_application
-      @activity_application = ActivityApplication.find(params[:id])
-    end
+    @activity_application = ActivityApplication.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def activity_application_params
-      params.require(:activity_application).permit(:user_id, :name, :description, :duration, :tags)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def activity_application_params
+    params.require(:activity_application).permit(:name, :description, :duration, :tags)
+  end
+
+  def activity_application_params_for_create
+    activity_application_params.tap do |aaparams|
+      aaparams[:user] = current_user
     end
+  end
+
 end

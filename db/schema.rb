@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411200415) do
+ActiveRecord::Schema.define(version: 20180415002342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20180411200415) do
     t.bigint "meetup_event_id"
     t.string "name"
     t.text "description"
-    t.int4range "duration"
     t.string "tags", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "duration"
     t.index ["meetup_event_id"], name: "index_activity_applications_on_meetup_event_id"
     t.index ["user_id"], name: "index_activity_applications_on_user_id"
   end
