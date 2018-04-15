@@ -11,5 +11,5 @@ first =  DateTime.new(2018,4, 22, 11, 0).in_time_zone(Time.zone)
 time = first
 10.times do
   MeetupEvent.create!(start_time: time)
-  time = time + 2.weeks
+  time = time + 4.weeks
 end
