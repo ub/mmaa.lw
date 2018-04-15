@@ -1,3 +1,13 @@
+ruby:
+  @predefined_tags =
+  ["GTD", "ГрупповаяКультура", "ИИ", "КогнитивнаяНаука", "КогнитивныеИскажения",
+   "КритическоеМышление", "Лайфхаки", "Логика", "Математика", "Нейробиология",
+   "НенасильственноеОбщение",
+   "ПрактическаяРациональность", "Псевдоаргументы", "СоциальнаяПсихология",
+   "ТеоремаБайеса", "ТеорияВероятностей", "ТеорияИгр", "ТеорияПринятияРешений",
+   "Трансгуманизм", "УправлениеПроектами", "Философия", "ЦепочкиLessWrong",
+   "Эволюция", "Эпистемология", "ЭффективныйАльтруизм",
+   "ПОЧВОВЕДЕНИЕ"]
 = form_for [@meetup_event, @activity_application ]do |f|
   - if @activity_application.errors.any?
     #error_explanation
@@ -7,14 +17,14 @@
           li = message
 
   .field
-    = f.label :name
+    = f.label :name, "Тема/название доклада"
     = f.text_field :name, required: true
   .field
-    = f.label :description
+    = f.label :description, "Описание и примечания"
     = f.text_area :description
-  = f.fields_for :user do | user_fields |
+  = f.fields_for :user, include_id: false do | user_fields |
     .field
-      = user_fields.label :contact
+      = user_fields.label :contact, "Как со мной связаться (e-mail, телефон, мессенджер, соцсеть&hellip;)".html_safe
       = user_fields.text_area :contact, required: true
   .field
     = f.label :duration, "Продолжительность в минутах"
@@ -34,6 +44,10 @@
     /   option value="100"
     =f.number_field :duration,  in: (10..120), step: 5, required: true
   .field
-    = f.label :tags
-    = f.text_field :tags
+    = f.label :tags, "Хэштеги (категории)"
+    = f.collection_check_boxes :tags, @predefined_tags, :itself, :itself do |b|
+      = b.label do
+        = b.check_box
+        = b.text
+    = f.text_field :tags, name: "activity_application[tags][]"
   .actions = f.submit

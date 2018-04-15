@@ -81,7 +81,11 @@ class ActivityApplicationsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def activity_application_params
     params.require(:activity_application).
-        permit(:name, :description, :duration, :tags, user_attributes:[:contact])
+        permit(:name, :description, :duration, tags:[], user_attributes:[:contact]).tap do |aaparams|
+          logger.info("SIC!")
+          logger.info(aaparams.inspect)
+          aaparams[:tags].delete('')
+        end
   end
 
   def activity_application_params_for_create
