@@ -18,6 +18,7 @@ class ActivityApplicationsController < ApplicationController
   # GET /activity_applications/new
   def new
     @activity_application = ActivityApplication.new
+    @activity_application.user = current_user
   end
 
   # GET /activity_applications/1/edit
@@ -79,7 +80,8 @@ class ActivityApplicationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def activity_application_params
-    params.require(:activity_application).permit(:name, :description, :duration, :tags)
+    params.require(:activity_application).
+        permit(:name, :description, :duration, :tags, user_attributes:[:contact])
   end
 
   def activity_application_params_for_create
@@ -87,5 +89,6 @@ class ActivityApplicationsController < ApplicationController
       aaparams[:user] = current_user
     end
   end
+
 
 end

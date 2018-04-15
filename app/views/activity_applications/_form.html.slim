@@ -12,6 +12,10 @@
   .field
     = f.label :description
     = f.text_area :description
+  = f.fields_for :user do | user_fields |
+    .field
+      = user_fields.label :contact
+      = user_fields.text_area :contact
   .field
     = f.label :duration, "Продолжительность в минутах"
     / = f.range_field :duration, list: 'tickmarks'
@@ -28,7 +32,7 @@
     /   option value="80"
     /   option value="90" label="1ч 30 мин"
     /   option value="100"
-    =f.number_field :duration, value: 20, in: (10..120), step: 5
+    =f.number_field :duration,  in: (10..120), step: 5
   .field
     = f.label :tags
     = f.text_field :tags
