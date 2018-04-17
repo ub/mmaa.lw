@@ -1,0 +1,13 @@
+/  add navigation links to this file
+- unless user_signed_in?
+  li
+    = link_to "Войти через Google", signin_path,  method: :get
+  li
+    = button_tag "Войти через Facebook",  method: :get,disabled: true, title: 'Опция в разработке...'
+  li
+    = button_tag "Войти через ВКонтакте",  method: :get,disabled: true, title: 'Опция в разработке...'
+  li
+    = button_tag "Войти через Twitter", method: :get,disabled: true, title: 'Опция в разработке...'
+- else
+  li
+    = link_to "Выйти", signout_path,  method: :get
