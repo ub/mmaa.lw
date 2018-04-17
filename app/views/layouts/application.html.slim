@@ -3,8 +3,8 @@ html
   head
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
     title
-      = content_for?(:title) ? yield(:title) : 'Lla'
-    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Lla'}"
+      = content_for?(:title) ? yield(:title) : 'Заявки на доклад для московского LW'
+    meta name="description" content="#{content_for?(:description) ? yield(:description) : 'Заявки на доклад для московского LW'}"
     == stylesheet_link_tag "application", :media => 'all', 'data-turbolinks-track' => 'reload'
     == javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
     == csrf_meta_tags
