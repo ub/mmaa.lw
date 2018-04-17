@@ -1,5 +1,5 @@
 class MeetupEventsController < ApplicationController
-  before_action  :authenticate_admin!, except: [:index, :show]
+  before_action  :authenticate_admin!, except: [:root, :index, :show]
   before_action :set_meetup_event, only: [:show, :edit, :update, :destroy]
 
   # GET /meetup_events
@@ -7,6 +7,11 @@ class MeetupEventsController < ApplicationController
   def index
     @meetup_events = MeetupEvent.all
   end
+  # GET /
+  def root
+    @meetup_events = MeetupEvent.where('start_time > ?', Time.now.at_midnight).order(start_time: :asc)
+  end
+
 
   # GET /meetup_events/1
   # GET /meetup_events/1.json
