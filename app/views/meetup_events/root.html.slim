@@ -3,23 +3,25 @@ h1 Home
 table
   thead
     tr
-      th Description
-      th Start time
-      th Place
-      th
-      th
+      th Описание
+      th Время начала
+      th Место проведения
       th
 
   tbody
-    - @meetup_events.each do |meetup_event|
+    - @meetup_events.each_with_index do |meetup_event, idx|
       tr
         td = meetup_event.description
         td = meetup_event.start_time
         td = meetup_event.place
-        td = link_to 'Show', meetup_event
-        td = link_to 'Edit', edit_meetup_event_path(meetup_event)
-        td = link_to 'Destroy', meetup_event, data: { confirm: 'Are you sure?' }, method: :delete
+        td = link_to 'Подробнее', meetup_event
+
+      - if idx < 2
+        tr
+          td colspan="8"
+            = render meetup_event
+            = render 'activity_applications/form', {meetup_event: meetup_event, activity_application: @new_activity_applications[idx]}
 
 br
 
-= link_to 'New Meetup event', new_meetup_event_path
+/ = link_to 'New Meetup event', new_meetup_event_path

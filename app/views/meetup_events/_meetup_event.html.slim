@@ -1,0 +1,12 @@
+p
+  strong Description:
+  = meetup_event.description
+p
+  strong Start time:
+  = meetup_event.start_time
+p
+  strong Place:
+  = meetup_event.place
+
+=> link_to 'Edit', edit_meetup_event_path(meetup_event)
+

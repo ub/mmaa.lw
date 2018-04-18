@@ -9,7 +9,8 @@ class MeetupEventsController < ApplicationController
   end
   # GET /
   def root
-    @meetup_events = MeetupEvent.where('start_time > ?', Time.now.at_midnight).order(start_time: :asc)
+    @meetup_events = MeetupEvent.where('start_time > ?', Time.now.at_midnight).order(start_time: :asc).limit(7)
+    @new_activity_applications = Array.new(3) {ActivityApplication.new.tap {|a| a.user = current_user}}
   end
 
 
