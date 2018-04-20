@@ -10,4 +10,7 @@
     = button_tag "Войти через Twitter", method: :get,disabled: true, title: 'Опция в разработке...'
 - else
   li
+    ' Я &mdash;
+    = current_user.name
+  li
     = link_to "Выйти", signout_path,  method: :get
