@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   helper_method :admin_signed_in?
   helper_method :correct_user?
+  helper_method :can_change?
 
   private
 
@@ -32,6 +33,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, :alert => "Access denied."
     end
   end
+
+  def can_change?(activity_application)
+    return activity_application.user.present? && activity_application.user == current_user
+  end
+
 
   def authenticate_user!
     if !current_user

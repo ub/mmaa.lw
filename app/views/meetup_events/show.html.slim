@@ -1,15 +1,16 @@
 p#notice = notice
-
 p
-  strong Description:
+  strong Описание:
   = @meetup_event.description
 p
-  strong Start time:
+  strong Время начала:
   = @meetup_event.start_time
 p
-  strong Place:
+  strong Место проведения:
   = @meetup_event.place
 
-=> link_to 'Edit', edit_meetup_event_path(@meetup_event)
-'|
-=< link_to 'Back', meetup_events_path
+== render 'meetup_event', meetup_event: @meetup_event
+
+/ => link_to 'Edit', edit_meetup_event_path(@meetup_event)
+/ '|
+=< link_to 'Назад', :back

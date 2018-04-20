@@ -1,12 +1,32 @@
-p
-  strong Description:
-  = meetup_event.description
-p
-  strong Start time:
-  = meetup_event.start_time
-p
-  strong Place:
-  = meetup_event.place
+h3 Список заявок
+- if meetup_event.activity_applications.present?
+  table border=1
+    thead
+      tr
+        th Автор
+        th Название
+        th Описание
+        th Продолжительность
+        th Хэштеги/тематика
+        th colspan=3
 
-=> link_to 'Edit', edit_meetup_event_path(meetup_event)
+    tbody
+      - meetup_event.activity_applications.each do |activity_application|
+        tr
+          td = activity_application.user&.name
+          td = activity_application.name
+          td = activity_application.description
+          td = activity_application.duration
+          td = activity_application.tags.join(" ")
+          td = link_to 'Смотреть', [meetup_event, activity_application]
+          - if can_change? activity_application
+            td = link_to 'Редактировать', edit_meetup_event_activity_application_path(meetup_event, activity_application)
+            td = link_to 'Удалить', [meetup_event, activity_application], data: {confirm: 'Are you sure?'}, method: :delete
+          - else
+            td colspan="2"
+- else
+  em Заявок нет
+br
 
+- if user_signed_in?
+  = link_to 'Новая заявка', new_meetup_event_activity_application_path(meetup_event)

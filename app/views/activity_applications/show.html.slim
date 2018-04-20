@@ -1,24 +1,25 @@
 p#notice = notice
 
 p
-  strong User:
-  = @activity_application.user
+  strong Заявитель:
+  = @activity_application.user&.name || '&mdash;'.html_safe
 p
-  strong Meetup event:
-  = @activity_application.meetup_event
+  strong Встреча:
+  = link_to @activity_application.meetup_event.start_time.to_date, @activity_application.meetup_event
 p
-  strong Name:
+  strong Название:
   = @activity_application.name
 p
-  strong Description:
+  strong Описание:
   = @activity_application.description
 p
-  strong Duration:
-  = @activity_application.duration
+  strong Заявляенная продолжительность:
+  = "#{@activity_application.duration} мин."
 p
-  strong Tags:
-  = @activity_application.tags
+  strong Хэштеги/тематика:
+  = @activity_application.tags.join ' '
 
-=> link_to 'Edit', edit_meetup_event_activity_application_path(@meetup_event, @activity_application)
-'|
-=< link_to 'Back', meetup_event_activity_applications_path(@meetup_event)
+- if can_change? @activity_application
+  => link_to 'Редактировать', edit_meetup_event_activity_application_path(@meetup_event, @activity_application)
+  '|
+=< link_to 'Назад', :back

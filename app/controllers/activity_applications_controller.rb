@@ -3,6 +3,7 @@ class ActivityApplicationsController < ApplicationController
 
   before_action :set_meetup_event
   before_action :set_activity_application, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_modifications!, only: [:edit, :update, :destroy]
 
   # GET /activity_applications
   # GET /activity_applications.json
@@ -60,7 +61,7 @@ class ActivityApplicationsController < ApplicationController
   def destroy
     @activity_application.destroy
     respond_to do |format|
-      format.html {redirect_to activity_applications_url, notice: 'Activity application was successfully destroyed.'}
+      format.html {redirect_to meetup_event_activity_applications_url(@meetup_event), notice: 'Activity application was successfully destroyed.'}
       format.json {head :no_content}
     end
   end
@@ -76,6 +77,11 @@ class ActivityApplicationsController < ApplicationController
 
   def set_activity_application
     @activity_application = ActivityApplication.find(params[:id])
+  end
+
+  def authorize_modifications!
+    authorized = @activity_application.try(:user).present? && @activity_application.user == current_user
+    render file: Rails.root.join('public/403.html'), status: :forbidden unless authorized
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
