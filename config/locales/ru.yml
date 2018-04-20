@@ -1,0 +1,8 @@
+ru:
+  activerecord:
+    models:
+      activity_application: Заявку на доклад
+  helpers:
+    submit:
+      create: "Создать %{model}"
+      update: "Изменить %{model}"
